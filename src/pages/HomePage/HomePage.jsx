@@ -1,13 +1,32 @@
-import { MovieList } from '../../components/index.js';
-import { useQuery, useQueryClient } from 'react-query';
-import { fetchPopularMovies } from '../../apiSevice.js';
+import { Error, Loader, MovieList } from '../../components/index.js';
+import { useInfiniteQuery, useQueryClient } from 'react-query';
+import { fetchPopularMovies } from '../../js/apiSevice.js';
 
 function HomePage() {
   const queryClient = useQueryClient();
-  const { data } = useQuery({ queryKey: 'popular-movies', queryFn: () => fetchPopularMovies() });
-  console.log(data);
+  const {
+    data: movies,
+    fetchNextPage,
+    hasNextPage,
+    isFetching,
+    error,
+  } = useInfiniteQuery('popular-movies', ({ pageParam = 1 }) => fetchPopularMovies(pageParam), {
+    getNextPageParam: (lastPage) => lastPage.page + 1, suspense: true, refetchOnWindowFocus: false,
+  });
 
-  return <div><MovieList /></div>;
+  const flatMovies = movies?.pages.map((movie) => movie.results).flat();
+
+  if (isFetching) {
+    return <Loader />;
+  }
+
+  if (error) {
+    return <Error />;
+  }
+
+  return <div>
+    {/*TODO: BUTTON LOAD MORE: TEMPLATE (<button onClick={fetchNextPage} disabled={isFetching}>Load more</button>) */}
+    <MovieList movies={flatMovies} /></div>;
 }
 
 export default HomePage;
