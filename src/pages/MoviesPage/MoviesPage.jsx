@@ -1,29 +1,37 @@
 import { Loader, MovieList, MovieSearchForm } from '../../components/index.js';
-import { useState } from 'react';
-import { useInfiniteQuery, useQuery } from 'react-query';
+import { useEffect, useState } from 'react';
+import { useInfiniteQuery } from 'react-query';
 import { fetchMovieWithKeyWord } from '../../js/apiSevice.js';
+import { useSearchParams } from 'react-router-dom';
 
 function MoviesPage() {
-  const [query, setQuery] = useState('');
+  const [params, setParams] = useSearchParams();
+  const pageParam = params.get('page') ?? 1;
+  const [query, setQuery] = useState(() => {
+    const queryParam = params.get('query');
+    if (queryParam) {
+      return queryParam;
+    }
+    return '';
+  });
   const {
     data: moviesData,
     isFetching,
     fetchNextPage,
     hasNextPage,
-  } = useInfiniteQuery(query, ({ pageParam = 1 }) => fetchMovieWithKeyWord(query, pageParam), {
+  } = useInfiniteQuery(query, () => fetchMovieWithKeyWord(query, pageParam), {
     getNextPageParam: (lastPage) => lastPage.page + 1, enabled: !!query, refetchOnWindowFocus: false,
   });
-  const flatMovies = moviesData?.pages.map((movie) => movie.results).flat();
+  let flatMovies = moviesData?.pages.map((movie) => movie.results).flat();
 
   if (isFetching) {
     return <Loader />;
   }
-  console.log(flatMovies);
 
-
-  console.log(moviesData, hasNextPage);
 
   function handleSearchChange(query) {
+    params.set('query', query);
+    setParams(params);
     setQuery(query);
   }
 

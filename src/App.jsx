@@ -12,7 +12,7 @@ function App() {
         <Navigation />
       </header>
       <main>
-        <Routes>
+        <Routes forceRefresh={true}>
           <Route path="/" element={<HomePage />} />
           <Route path="/movies" element={<MoviesPage />} />
           <Route path="/movies/:movieId" element={<MovieDetailsPage />}>
