@@ -1,0 +1,41 @@
+body {
+    margin: 0;
+}
+
+ul {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    margin: 0;
+    line-height: 1em;
+
+}
+
+a {
+    display: block;
+    text-decoration: none;
+    max-width: 100%;
+}
+
+li {
+    display: block;
+}
+
+p {
+    font-size: 20px;
+    margin: 15px 0 15px 0;
+}
+
+header {
+    border-bottom: 1px solid #e0e0e0;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    padding: 5px 20px 5px 20px;
+    margin-bottom: 25px;
+}
+
+main {
+    padding: 0 20px 30px 20px;
+}

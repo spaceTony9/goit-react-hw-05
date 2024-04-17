@@ -1,13 +1,9 @@
-import { Link, useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
+import css from './GoBackBtn.module.css';
 
 function GoBackBtn({ route }) {
-  // function handleGoBack() {
-  //   // navigate('/');
-  // }
-
-  return <div>
-
-    <button><Link to={route}>Go back</Link></button>
+  return <div className={css.buttonWrapper}>
+    <button className={css.button}><Link className={css.buttonLink} to={route}>Go back</Link></button>
   </div>;
 }
 

@@ -1,7 +1,8 @@
 import { fetchMovieCast } from '../../js/apiSevice.js';
 import { useParams } from 'react-router-dom';
 import { useQuery } from 'react-query';
-import { CastMemberCard, Error, Loader } from '../index.js';
+import { CastMemberCard, ErrorMessage, Loader } from '../index.js';
+import css from './MovieCast.module.css';
 
 function MovieCast() {
   const { movieId } = useParams();
@@ -11,15 +12,14 @@ function MovieCast() {
     error,
   } = useQuery([`${movieId}/cast`], () => fetchMovieCast(movieId), { refetchOnWindowFocus: false });
 
-  if (isFetching) {
-    return <Loader />;
-  }
+  return <>
+    {isFetching && <Loader />}
+    {error && <ErrorMessage />}
+    <ul className={css.castList}>
+      {data?.cast && data.cast.map(castWorker => <CastMemberCard key={castWorker.id} cast={castWorker} />)}
+    </ul>
+    ;</>;
 
-  if (error) {
-    return <Error />;
-  }
-
-  return <>{data?.cast && data.cast.map(castWorker => <CastMemberCard key={castWorker.id} cast={castWorker} />)}</>;
 }
 
 export default MovieCast;

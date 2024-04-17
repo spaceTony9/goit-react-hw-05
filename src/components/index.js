@@ -6,6 +6,7 @@ export { default as Navigation } from './Navigation/Navigation.jsx';
 export { default as Loader } from './Loader/Loader.jsx';
 export { default as MovieDetails } from './MovieDetails/MovieDetails.jsx';
 export { default as CastMemberCard } from './CastMemberCard/CastMemberCard.jsx';
-export { default as Error } from './Error/Error.jsx';
+export { default as ErrorMessage } from './ErrorMessage/ErrorMessage.jsx';
 export { default as MovieReviewsList } from './MovieReviewsList/MovieReviewsList.jsx';
 export { default as MovieSearchForm } from './MovieSearchForm/MovieSearchForm.jsx';
+export { default as LoadMoreBtn } from './LoadMoreBtn/LoadMoreBtn.jsx';

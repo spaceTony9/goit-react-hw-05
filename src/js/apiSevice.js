@@ -23,7 +23,7 @@ export async function fetchMovieWithKeyWord(query, page) {
     });
     return response.data;
   } catch (error) {
-    console.error('Error fetching movies:', error);
+    console.error('ErrorMessage fetching movies:', error);
     throw error;
   }
 }

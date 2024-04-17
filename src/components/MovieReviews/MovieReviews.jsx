@@ -1,8 +1,7 @@
 import { useParams } from 'react-router-dom';
 import { useQuery } from 'react-query';
 import { fetchMovieReviews } from '../../js/apiSevice.js';
-import MovieReviewsList from '../MovieReviewsList/MovieReviewsList.jsx';
-import { Error, Loader } from '../index.js';
+import { ErrorMessage, Loader, MovieReviewsList } from '../index.js';
 
 function MovieReviews() {
 
@@ -20,11 +19,11 @@ function MovieReviews() {
   }
 
   if (error) {
-    return <Error />;
+    return <ErrorMessage />;
   }
-  return <>{data?.results.length ? data.results.map(movieReview => <MovieReviewsList key={movieReview.id}
-                                                                                     review={movieReview} />) :
-    <p>No reviews found</p>}</>;
+  return <ul>{data?.results.length ? data.results.map(movieReview => <MovieReviewsList key={movieReview.id}
+                                                                                       review={movieReview} />) :
+    <p>No reviews found</p>}</ul>;
 }
 
 export default MovieReviews;

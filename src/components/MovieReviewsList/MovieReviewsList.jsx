@@ -1,14 +1,13 @@
-function MovieReviewsList({ review: { author, content, created_at: reviewDate } }) {
+import css from './MovieReviewsList.module.css';
+
+function MovieReviewsList({ review: { id, author, content, created_at: reviewDate } }) {
   const dateForUser = new Date(reviewDate);
-  return <div>
-    <ul>
-      <li>
-        <h2>{author}</h2>
-        <span>{`Posted on: ${dateForUser.getDay()}/${dateForUser.getMonth()}/${dateForUser.getFullYear()}`}</span>
-        <p>{content}</p>
-      </li>
-    </ul>
-  </div>;
+  return <li className={css.listItem} key={id}>
+    <h2>{author}</h2>
+    <span>{`Posted on: ${dateForUser.getDay()}/${dateForUser.getMonth()}/${dateForUser.getFullYear()}`}</span>
+    <p className={css.reviewContent}>{content}</p>
+  </li>
+    ;
 }
 
 export default MovieReviewsList;

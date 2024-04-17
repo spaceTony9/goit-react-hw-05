@@ -1,16 +1,19 @@
 import { Link, useLocation } from 'react-router-dom';
 import { CONSTANTS } from '/src/js/constants.js';
-import { useRef } from 'react';
+
+import css from './MovieList.module.css';
 
 function MovieList({ movies }) {
   const location = useLocation();
   return <div>
-    <ul> {movies.map(movie => {
+    <ul className={css.moviesList}> {movies.map(movie => {
       const { poster_path: photoPath, id, title } = movie;
-      return <li key={id}>
+      return <li className={css.moviesListItem} key={id}>
         <div>
-          <img src={CONSTANTS.PHOTO_BASE_URL + photoPath} alt={title} />
-          <Link to={`/movies/${id}`} state={location}><h2>{title}</h2></Link>
+          <img className={css.movieCardImg}
+               src={CONSTANTS.PHOTO_BASE_URL + photoPath} alt={title} />
+          <Link className={css.movieLink} to={`/movies/${id}`} state={location}><h5
+            className={css.movieTitle}>{title}</h5></Link>
         </div>
       </li>;
     })}</ul>
